@@ -2,27 +2,22 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
-
+    <link href="<c:url value="/resources/style.css"/>" rel="stylesheet" type="text/css"/>
+    <title>Home page</title>
 </head>
 <body>
-
-<ol type="1">
-
-    <c:forEach var="question" items="${questions}">
-        <li>
-                ${question.content}
-            <input type="hidden" name="questionId" value="${question.id}">
-            <ol type="a">
-                <c:forEach var="answer" items="${question.answers}">
-                    <li>
-                        <input type="radio" name="question_${question.id}" value=${answer.id}>
-                            ${answer.content}
-                    </li>
-                </c:forEach>
-            </ol>
-        </li>
-    </c:forEach>
-</ol>
+<table class="table" style="display: table; margin:35px auto;">
+    <tr>
+        <th><a href="/test">Пройти тестирование</a></th>
+    </tr>
+    <tr>
+        <th><a href="/questions">Редактировать тест</a></th>
+    </tr>
+    <tr>
+        <th><a href="/statistic">Статистика</a></th>
+    </tr>
+</table>
+</div>
 
 </body>
 </html>

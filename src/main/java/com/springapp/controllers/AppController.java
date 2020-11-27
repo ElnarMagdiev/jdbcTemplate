@@ -29,6 +29,11 @@ public class AppController {
     }
 
     @GetMapping("/")
+    public String index() {
+        return "index";
+    }
+
+    @GetMapping("/test")
     public String index(Model model) {
         List<Question> questions = questionService.getAllQuestions();
         if (!questions.isEmpty())
@@ -39,7 +44,13 @@ public class AppController {
             }
         }
         model.addAttribute("questions", questions);
-        return "index";
+        return "test";
+    }
+
+    @GetMapping("/edit")
+    public String edit(Model model) {
+
+        return "test";
     }
 
 }
