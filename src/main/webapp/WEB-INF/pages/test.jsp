@@ -20,7 +20,6 @@
             <c:forEach var="question" items="${questions}">
                 <li>
                         ${question.content}
-<%--                    <input type="hidden" name="questionId" value="${question.id}">--%>
                     <ol type="a">
                         <c:forEach var="answer" items="${question.answers}">
                             <li>

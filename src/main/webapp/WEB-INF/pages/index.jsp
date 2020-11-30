@@ -11,7 +11,7 @@
         <th><a href="/test">Пройти тестирование</a></th>
     </tr>
     <tr>
-        <th><a href="/edit">Редактировать тест</a></th>
+        <th><a href="/edit/">Редактировать тест</a></th>
     </tr>
     <tr>
         <th><a href="/statistic">Статистика</a></th>
