@@ -6,12 +6,10 @@ import com.springapp.services.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/edit")
@@ -39,16 +37,30 @@ public class EditController {
     }
 
     @GetMapping("/add")
-    public String addQuestion(Model model) {
+    public String addQuestion() {
 
         return "addQuestion";
     }
 
     @PostMapping("/add")
-    public String saveQuestion(Model model) {
+    public String saveQuestion(@RequestParam Map<String, String> param) {
+        for (Map.Entry<String, String> entry:param.entrySet()) {
+            String content = entry.getValue();
+            if (!content.isEmpty()) {
+                Question question = new Question(content);
+                Long id = questionService.add(question);
+                question.setId(id);
+            }
+        }
 
-        return "addQuestion";
+        return  "redirect:/edit/add";
     }
+
+    @GetMapping("/add/answers")
+    public String addAnswers() {
+        return "addAnswers";
+    }
+
 
     @Autowired
     public void setQuestionService(QuestionService questionService) {

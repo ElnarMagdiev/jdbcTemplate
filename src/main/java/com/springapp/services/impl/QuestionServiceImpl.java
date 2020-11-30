@@ -24,8 +24,8 @@ public class QuestionServiceImpl implements QuestionService {
 
     @Override
     @Transactional
-    public void add(Question question) {
-        questionDao.add(question);
+    public long add(Question question) {
+        return questionDao.add(question);
     }
 
     @Override
