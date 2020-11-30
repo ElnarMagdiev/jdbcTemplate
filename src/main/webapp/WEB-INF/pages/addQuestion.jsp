@@ -13,7 +13,21 @@
     <link href="<c:url value="/resources/style.css"/>" rel="stylesheet" type="text/css"/>
 </head>
 <body>
+<form action="/edit/add" method="post">
+    <h3>Вопрос</h3>
+    <input type="text" name="content" id="content" size="50">
+    <br>
+    <br>
+    <h4>Варианты ответа</h4>
+   <c:forEach var="i" begin="0" end="3">
+        <input type="text" name="answer${i}" id="${i}">
 
+   </c:forEach>
 
+    <br>
+    <br>
+    <input type="submit" value="Сохранить">
+</form>
+<a href="/edit/">Назад</a>
 </body>
 </html>
