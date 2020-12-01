@@ -23,10 +23,8 @@ public class AnswerDaoImpl implements AnswerDao {
 
     @Override
     public void add(Answer answer) {
-        String sql = "INSERT INTO schema_web.answers(id, content, question_id" +
-                ", correct) VALUES (?,?,?,?)";
-        jdbcTemplate.update(sql, answer.getId(), answer.getContent()
-                , answer.getQuestion_id(), answer.isCorrect());
+        String sql = "INSERT INTO schema_web.answers(content, question_id, correct ) VALUES (?,?,?)";
+        jdbcTemplate.update(sql, answer.getContent(), answer.getQuestion_id(), answer.isCorrect());
     }
 
     @Override
@@ -45,7 +43,7 @@ public class AnswerDaoImpl implements AnswerDao {
     @Override
     public Answer getAnswerById(long id) {
         String sql = "SELECT * FROM schema_web.answers WHERE id = ?";
-        return (Answer) jdbcTemplate.queryForObject(sql, new AnswerMapper());
+        return (Answer) jdbcTemplate.queryForObject(sql, new AnswerMapper() ,new Object[]{id});
     }
 
     @Override

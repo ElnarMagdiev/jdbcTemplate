@@ -13,7 +13,7 @@
     <link href="<c:url value="/resources/style.css"/>" rel="stylesheet" type="text/css"/>
 </head>
 <body>
-<h3>Добавьте вопрос</h3>
+<h3>Добавить вопрос</h3>
 <form action="/edit/add" method="post">
     <input type="text" name="question" id="content" size="50">
     <br>

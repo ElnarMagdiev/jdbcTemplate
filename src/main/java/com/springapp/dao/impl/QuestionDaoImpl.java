@@ -62,7 +62,7 @@ public class QuestionDaoImpl implements QuestionDao {
     @Override
     public Question getQuestionById(long id) {
         String sql = "SELECT * FROM schema_web.questions WHERE id = ?";
-        return (Question) jdbcTemplate.queryForObject(sql, new QuestionMapper());
+        return (Question) jdbcTemplate.queryForObject(sql, new QuestionMapper() ,new Object[]{id});
     }
 
     @Override

@@ -40,4 +40,10 @@ public class Answer {
 
     public Answer() {
     }
+
+    public Answer(Long question_id, String content, boolean isCorrect) {
+        this.question_id = question_id;
+        this.content = content;
+        this.isCorrect = isCorrect;
+    }
 }
