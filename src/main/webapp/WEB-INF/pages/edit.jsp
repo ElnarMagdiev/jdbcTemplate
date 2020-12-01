@@ -24,7 +24,6 @@
                     <ol type="a">
                         <c:forEach var="answer" items="${question.answers}">
                             <li>
-                                <input type="radio" name="${question.id}" value=${answer.id}>
                                     ${answer.content}
                             </li>
                         </c:forEach>

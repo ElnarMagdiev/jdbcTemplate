@@ -32,8 +32,10 @@ public class EditController {
         return "edit";
     }
 
-    @GetMapping("/{question}")
-    public String questionEditForm(@PathVariable Question question, Model model) {
+    @GetMapping("/{questionId}")
+    public String questionEditForm(@PathVariable Long questionId, Model model) {
+        Question question = questionService.getQuestionById(questionId);
+        question.setAnswers(answerService.getAnswersByQuestionId(questionId));
         model.addAttribute("question", question);
         return "questionEdit";
     }
