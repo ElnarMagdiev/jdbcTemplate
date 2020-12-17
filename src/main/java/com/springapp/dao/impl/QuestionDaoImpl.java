@@ -33,13 +33,11 @@ public class QuestionDaoImpl implements QuestionDao {
         KeyHolder keyHolder = new GeneratedKeyHolder();
 
         jdbcTemplate.update(
-                new PreparedStatementCreator() {
-                    public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
-                        PreparedStatement ps =
-                                connection.prepareStatement(sql, new String[] {"id"});
-                        ps.setString(1, content);
-                        return ps;
-                    }
+                connection -> {
+                    PreparedStatement ps =
+                            connection.prepareStatement(sql, new String[] {"id"});
+                    ps.setString(1, content);
+                    return ps;
                 },
                 keyHolder);
 

@@ -32,7 +32,9 @@
             </c:forEach>
         </ol>
         <br>
-        <button type="submit">Завершить</button>
+        <div style="text-align: center">
+            <button name="submit" type="submit">Завершить</button>
+        </div>
     </form>
 </nav>
 </body>
