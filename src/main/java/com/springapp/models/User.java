@@ -6,16 +6,14 @@ public class User {
     private Long id;
     private String username;
     private String password;
-    private boolean isActive;
     private List<Role> roles;
 
     public User() {
     }
 
-    public User(String username, String password, boolean isActive, List<Role> roles) {
+    public User(String username, String password, List<Role> roles) {
         this.username = username;
         this.password = password;
-        this.isActive = isActive;
         this.roles = roles;
 
     }
@@ -42,14 +40,6 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public boolean isActive() {
-        return isActive;
-    }
-
-    public void setActive(boolean active) {
-        isActive = active;
     }
 
     public List<Role> getRoles() {

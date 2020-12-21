@@ -1,7 +1,9 @@
 package com.springapp.config;
 
+import com.springapp.services.impl.AuthenticationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -14,13 +16,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Configuration
 @EnableWebSecurity
+@ComponentScan(basePackages = "com.springapp")
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+
+    private AuthenticationService authenticationService;
+
+    @Autowired
+    public void setAuthenticationService(AuthenticationService authenticationService) {
+        this.authenticationService = authenticationService;
+    }
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        auth
-                .inMemoryAuthentication()
-                .withUser("user").password("123").roles("USER");
+        auth.userDetailsService(authenticationService).passwordEncoder(passwordEncoder());
     }
 
     @Bean
@@ -28,11 +36,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return NoOpPasswordEncoder.getInstance();
     }
 
-    @Override
+
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/", "/registration", "/favicon.ico").permitAll()
+                .antMatchers("/", "/registration").permitAll()
+                .anyRequest().authenticated()
+                .and()
+                .formLogin()
+                .loginPage("/login")
+                .permitAll()
+                .and()
+                .logout()
+                .permitAll()
                 .and()
                 .csrf().disable();
     }

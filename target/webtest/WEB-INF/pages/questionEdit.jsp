@@ -32,7 +32,7 @@
         </c:forEach>
     </ol>
     <br>
-    <input type="submit" value="Submit">
+    <input type="submit" value="Сохранить">
 </form>
 </body>
 </html>
