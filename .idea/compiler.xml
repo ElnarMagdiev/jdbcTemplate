@@ -6,10 +6,7 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-<<<<<<< HEAD
-=======
         <module name="spring-web" />
->>>>>>> 7c3be66 (1st)
         <module name="webtest" />
       </profile>
     </annotationProcessing>

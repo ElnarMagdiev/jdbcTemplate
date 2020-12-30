@@ -3,6 +3,7 @@
   <component name="SqlDialectMappings">
     <file url="file://$PROJECT_DIR$/src/main/java/com/springapp/dao/impl/AnswerDaoImpl.java" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/src/main/java/com/springapp/dao/impl/QuestionDaoImpl.java" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/springapp/dao/impl/ResultDaoImpl.java" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/src/main/resources/creation.sql" dialect="PostgreSQL" />
     <file url="file://$PROJECT_DIR$/src/main/resources/fillinf.sql" dialect="PostgreSQL" />
   </component>

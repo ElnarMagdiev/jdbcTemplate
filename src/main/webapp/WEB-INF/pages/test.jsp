@@ -15,7 +15,7 @@
 <body>
 
 <nav>
-    <form method="post" action="/submit">
+    <form method="post" action="/test/result">
         <ol type="1" style="display: table; margin:35px auto;">
             <c:forEach var="question" items="${questions}">
                 <li>
@@ -33,7 +33,7 @@
         </ol>
         <br>
         <div style="text-align: center">
-            <button name="submit" type="submit">Завершить</button>
+            <button type="submit">Завершить</button>
         </div>
     </form>
 </nav>

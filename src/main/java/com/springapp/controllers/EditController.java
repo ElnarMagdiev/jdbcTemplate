@@ -40,6 +40,33 @@ public class EditController {
         return "questionEdit";
     }
 
+    @PostMapping("/{questionId}")
+    public String save(@PathVariable Long questionId, HttpServletRequest request) {
+        String questionContent = request.getParameter("question");
+        if (questionContent != null) {
+            questionService.update(new Question(questionId, questionContent));
+        }
+        for (int i = 0; i < 4; i++) {
+            String answerContent = request.getParameter("answer_content_" + i);
+            boolean isCorrect = false;
+            Long answerId = Long.parseLong(request.getParameter("id_" + i));
+            String correctAnswerId = null;
+            if ((correctAnswerId = request.getParameter("answer_isCorrect")) != null) {
+                if (Integer.parseInt(correctAnswerId) == i) {
+                    isCorrect = true;
+                }
+            }
+            Answer answer = new Answer();
+            answer.setId(answerId);
+            answer.setQuestion_id(questionId);
+            answer.setContent(answerContent);
+            answer.setCorrect(isCorrect);
+            answerService.update(answer);
+        }
+
+        return "redirect:/edit/";
+    }
+
     @GetMapping("/add")
     public String addQuestion() {
         return "addQuestion";
