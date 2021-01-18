@@ -44,7 +44,6 @@
       <element id="directory" name="META-INF">
         <element id="file-copy" path="$PROJECT_DIR$/target/webtest/META-INF/MANIFEST.MF" />
       </element>
-      <element id="javaee-facet-resources" facet="spring-web/web/Web" />
     </root>
   </artifact>
 </component>

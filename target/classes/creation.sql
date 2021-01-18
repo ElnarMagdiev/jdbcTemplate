@@ -20,4 +20,17 @@ create table if not exists schema_web.answers
     correct boolean default false
 );
 
+create table if not exists schema_web.results
+(
+    id       bigserial             not null
+        constraint results_pk
+            primary key,
+    user_id  bigserial             not null
+        constraint results_users_id_fk
+            references schema_web.users,
+    score    integer default 0     not null,
+    complete boolean default false not null
+
+);
+
 
