@@ -5,8 +5,11 @@ import com.springapp.models.Result;
 import com.springapp.utilities.ResultMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
+import java.sql.PreparedStatement;
 import java.util.List;
 
 @Repository
@@ -20,9 +23,31 @@ public class ResultDaoImpl implements ResultDao {
     }
 
     @Override
-    public void add(Result result) {
+    public long add(Result result) {
         String sql = "INSERT INTO schema_web.results(user_id, score, complete) VALUES (?, ?, ?)";
         jdbcTemplate.update(sql, result.getUser_id(), result.getScore(), result.isComplete());
+
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+
+        jdbcTemplate.update(
+                connection -> {
+                    PreparedStatement ps =
+                            connection.prepareStatement(sql, new String[] {"id"});
+                    ps.setLong(1, result.getUser_id());
+                    ps.setInt(2, result.getScore());
+                    ps.setBoolean(3, result.isComplete());
+                    return ps;
+                },
+                keyHolder);
+
+        return (long)keyHolder.getKey();
+    }
+
+    @Override
+    public Result getResultById(long id) {
+        String sql = "SELECT * FROM schema_web.results WHERE id=?";
+        Result result = (Result) jdbcTemplate.queryForObject(sql, new ResultMapper(), new Object[]{id});
+        return result;
     }
 
     @Override

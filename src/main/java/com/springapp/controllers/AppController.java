@@ -8,11 +8,11 @@ import com.springapp.services.AnswerService;
 import com.springapp.services.QuestionService;
 import com.springapp.services.ResultService;
 import com.springapp.services.UserService;
-import com.springapp.services.impl.AuthenticationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.servlet.http.HttpServletRequest;
@@ -69,21 +69,19 @@ public class AppController {
     }
 
     @PostMapping("/test/result")
-    public String submit(HttpServletRequest request, Principal principal) {
-        List<Question> allQuestions= questionService.getAllQuestions();
+    public String submit(HttpServletRequest request, Principal principal, Model model) {
         Map<String, String[]> testResults = request.getParameterMap();
         int count = 0;
-        //Edit this later
-        for (Map.Entry<String, String[]> entry:
-             testResults.entrySet()) {
-            String correctAnswerId = entry.getKey();
-            String[] answerId =entry.getValue();
-            if(correctAnswerId == null || answerId == null) break;
-           if (Long.parseLong(correctAnswerId) == Long.parseLong(answerId.toString())) {
-               count++;
-           }
-           //End
+        for (Map.Entry<String, String[]> entry :
+                testResults.entrySet()) {
+            String[] value = entry.getValue();
+            if (value.length > 1) break;
+            Answer answer = answerService.getAnswerById(Long.parseLong(value[0]));
+            if (answer.isCorrect()) {
+                count++;
+            }
         }
+        List<Question> allQuestions= questionService.getAllQuestions();
         boolean testCompleted = allQuestions.size() == count;
         String currentUsername = principal.getName();
         User user = userService.getUser(currentUsername);
@@ -91,13 +89,25 @@ public class AppController {
         result.setUser_id(user.getId());
         result.setScore(count);
         result.setComplete(testCompleted);
-
-        return "redirect:/test/result";
+        Long resultId = resultService.add(result);
+        result.setId(resultId);
+        model.addAttribute("result", result);
+        return "redirect:/test/result/" + resultId;
     }
 
-    @GetMapping("/test/result")
-    public String edit(Model model) {
+    @GetMapping("/test/result/{resultId}")
+    public String edit(@PathVariable Long resultId, Model model) {
+        Result result = resultService.getResultById(resultId);
+        int score = result.getScore();
+        int questionCount = questionService.getAllQuestions().size();
+        User user = userService.getUserByUserId(result.getUser_id());
+        boolean complete = result.isComplete();
 
+        model.addAttribute("questionCount", questionCount);
+        model.addAttribute("user", user.getUsername());
+        model.addAttribute("score", score);
+        model.addAttribute("complete", complete);
+        model.addAttribute("percent", score * 100/questionCount);
         return "result";
     }
 

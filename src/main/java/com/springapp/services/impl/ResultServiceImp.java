@@ -24,8 +24,8 @@ public class ResultServiceImp implements ResultService {
 
     @Override
     @Transactional
-    public void add(Result result) {
-        resultDao.add(result);
+    public long add(Result result) {
+        return resultDao.add(result);
     }
 
     @Override
@@ -40,6 +40,11 @@ public class ResultServiceImp implements ResultService {
     public List<Result> getAllResults() {
         List<Result> results = resultDao.getAllResults();
         return results;
+    }
+
+    @Override
+    public Result getResultById(long id) {
+        return resultDao.getResultById(id);
     }
 
     @Override

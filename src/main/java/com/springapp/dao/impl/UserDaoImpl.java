@@ -43,4 +43,9 @@ public class UserDaoImpl implements UserDao {
     }
 
 
+    @Override
+    public User getUserByUserId(long id) {
+        String sql = "SELECT * FROM schema_web.users WHERE id=?";
+        return (User) jdbcTemplate.queryForObject(sql, new UserMapper(), new Object[]{id});
+    }
 }

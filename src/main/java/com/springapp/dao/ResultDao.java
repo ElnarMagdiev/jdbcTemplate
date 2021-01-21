@@ -5,7 +5,8 @@ import com.springapp.models.Result;
 import java.util.List;
 
 public interface ResultDao {
-    void add(Result result);
+    long add(Result result);
+    Result getResultById(long id);
     List<Result> getResultsByUserId(long id);
     List<Result> getAllResults();
     int findBetterResults(int score);
